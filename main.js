@@ -179,6 +179,26 @@ class Tree {
     this.postOrderTraversal(root.right, callback);
     callback(root.data);
   }
+
+  height(value) {
+    let currentNode = this.root;
+    while (currentNode != null) {
+      if (currentNode.data == value) {
+        return this.heightRec(currentNode);
+      } else if (currentNode.data > value) {
+        currentNode = currentNode.left;
+      } else {
+        currentNode = currentNode.right;
+      }
+    }
+    return undefined;
+  }
+
+  heightRec(node) {
+    if (node == null) return 0;
+    if (!node.right && !node.left) return 0;
+    return 1 + Math.max(this.heightRec(node.left), this.heightRec(node.right));
+  }
 }
 
 const BST = new Tree([1, 2, 3, 4, 5, 6, 7]);
