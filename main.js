@@ -128,6 +128,57 @@ class Tree {
       callback(currItem.data);
     }
   }
+
+  inOrderTraversalForEach(callback) {
+    if (
+      typeof callback != "function" ||
+      callback == undefined ||
+      callback == NaN
+    )
+      throw new Error("provide a function!");
+    this.inOrderTraversal(this.root, callback);
+  }
+
+  inOrderTraversal(root, callback) {
+    if (root == null) return;
+    this.inOrderTraversal(root.left, callback);
+    callback(root.data);
+    this.inOrderTraversal(root.right, callback);
+  }
+
+  preOrderTraversalForEach(callback) {
+    if (
+      typeof callback != "function" ||
+      callback == undefined ||
+      callback == NaN
+    )
+      throw new Error("provide a function!");
+    this.preOrderTraversal(this.root, callback);
+  }
+
+  preOrderTraversal(root, callback) {
+    if (root == null) return;
+    callback(root.data);
+    this.preOrderTraversal(root.left, callback);
+    this.preOrderTraversal(root.right, callback);
+  }
+
+  postOrderTraversalForEach(callback) {
+    if (
+      typeof callback != "function" ||
+      callback == undefined ||
+      callback == NaN
+    )
+      throw new Error("provide a function!");
+    this.postOrderTraversal(this.root, callback);
+  }
+
+  postOrderTraversal(root, callback) {
+    if (root == null) return;
+    this.postOrderTraversal(root.left, callback);
+    this.postOrderTraversal(root.right, callback);
+    callback(root.data);
+  }
 }
 
 const BST = new Tree([1, 2, 3, 4, 5, 6, 7]);
