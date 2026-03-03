@@ -39,6 +39,22 @@ class Tree {
     );
     return root;
   }
+
+  includes(value) {
+    let node = this.root;
+    while (node != null) {
+      if (node.data === value) {
+        return true;
+      } else {
+        if (node.data > value) {
+          node = node.left;
+        } else {
+          node = node.right;
+        }
+      }
+    }
+    return false;
+  }
 }
 
 const BST = new Tree([-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
@@ -54,3 +70,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(BST.root);
+
+console.log(BST.includes(11));
+console.log(BST.includes(19));
+console.log(BST.includes(-2));
