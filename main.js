@@ -55,9 +55,33 @@ class Tree {
     }
     return false;
   }
+
+  insert(value) {
+    let node = this.root;
+    while (true) {
+      if (node.data === value) {
+        return;
+      }
+      if (node.data > value) {
+        if (node.left == null) {
+          node.left = new Node(value);
+          return;
+        } else {
+          node = node.left;
+        }
+      } else {
+        if (node.right == null) {
+          node.right = new Node(value);
+          return;
+        } else {
+          node = node.right;
+        }
+      }
+    }
+  }
 }
 
-const BST = new Tree([-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+const BST = new Tree([3, 4, 5, 6, 7]);
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null || node === undefined) {
@@ -68,9 +92,3 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
-
-prettyPrint(BST.root);
-
-console.log(BST.includes(11));
-console.log(BST.includes(19));
-console.log(BST.includes(-2));
