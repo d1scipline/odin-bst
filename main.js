@@ -2,6 +2,14 @@ function compareNumbers(a, b) {
   return a - b;
 }
 
+function getMinValue(root) {
+  let currentNode = root;
+  while (currentNode.left != null) {
+    currentNode = currentNode.left;
+  }
+  return currentNode.data;
+}
+
 class Node {
   constructor(data) {
     this.data = data;
@@ -79,9 +87,33 @@ class Tree {
       }
     }
   }
+
+  delete(value) {
+    this.root = this.deleteRec(this.root, value);
+  }
+
+  deleteRec(root, value) {
+    if (root === null) return null;
+
+    if (root.data > value) {
+      root.left = this.deleteRec(root.left, value);
+    } else if (value > root.data) {
+      root.right = this.deleteRec(root.right, value);
+    } else {
+      if (!root.left) return root.right;
+      if (!root.right) return root.left;
+
+      root.data = getMinValue(root.right);
+      root.right = this.deleteRec(root.right, root.data);
+    }
+
+    return root;
+  }
 }
 
-const BST = new Tree([3, 4, 5, 6, 7]);
+const BST = new Tree([
+  1, 2, 3, 4, 5, 5.5, 5.6, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+]);
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null || node === undefined) {
