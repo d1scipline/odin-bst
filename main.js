@@ -215,6 +215,28 @@ class Tree {
     }
     return undefined;
   }
+
+  isBalanced() {
+    function checkHeight(node) {
+      if (node == null) return 0;
+      let left_h = checkHeight(node.left);
+      if (left_h == -1) return -1;
+
+      let right_h = checkHeight(node.right);
+      if (right_h == -1) return -1;
+
+      if (Math.abs(right_h - left_h) <= 1) {
+        return 1 + Math.abs(right_h - left_h);
+      } else {
+        return -1;
+      }
+    }
+    if (checkHeight(this.root) >= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 const BST = new Tree([1, 2, 3, 4, 5, 6, 7]);
@@ -230,3 +252,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(BST.root);
+console.log(BST.isBalanced());
