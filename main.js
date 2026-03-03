@@ -109,11 +109,28 @@ class Tree {
 
     return root;
   }
+
+  levelOrderForEach(callback) {
+    if (
+      typeof callback != "function" ||
+      callback == undefined ||
+      callback == NaN
+    )
+      throw new Error("provide a function!");
+    let queue = [];
+    let currItem = null;
+    if (this.root == null) return;
+    queue.push(this.root);
+    while (queue.length > 0) {
+      currItem = queue.shift();
+      if (currItem.left) queue.push(currItem.left);
+      if (currItem.right) queue.push(currItem.right);
+      callback(currItem.data);
+    }
+  }
 }
 
-const BST = new Tree([
-  1, 2, 3, 4, 5, 5.5, 5.6, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-]);
+const BST = new Tree([1, 2, 3, 4, 5, 6, 7]);
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null || node === undefined) {
@@ -124,3 +141,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
+
+prettyPrint(BST.root);
