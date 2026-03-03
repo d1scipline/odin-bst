@@ -199,6 +199,22 @@ class Tree {
     if (!node.right && !node.left) return 0;
     return 1 + Math.max(this.heightRec(node.left), this.heightRec(node.right));
   }
+
+  depth(value) {
+    let depth = 0;
+    let currentNode = this.root;
+    while (currentNode != null) {
+      if (currentNode.data == value) {
+        return depth;
+      } else if (currentNode.data > value) {
+        currentNode = currentNode.left;
+      } else {
+        currentNode = currentNode.right;
+      }
+      depth += 1;
+    }
+    return undefined;
+  }
 }
 
 const BST = new Tree([1, 2, 3, 4, 5, 6, 7]);
