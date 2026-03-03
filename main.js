@@ -237,6 +237,19 @@ class Tree {
       return false;
     }
   }
+
+  rebalance() {
+    function DFS(node) {
+      if (node == null) {
+        return [];
+      } else {
+        let left = DFS(node.left);
+        let right = DFS(node.right);
+        return left.concat([node.data], right);
+      }
+    }
+    this.root = this.buildTree(DFS(this.root));
+  }
 }
 
 const BST = new Tree([1, 2, 3, 4, 5, 6, 7]);
@@ -250,6 +263,3 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
-
-prettyPrint(BST.root);
-console.log(BST.isBalanced());
